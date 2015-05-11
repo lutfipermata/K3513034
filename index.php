@@ -1,7 +1,7 @@
 <?php
 
 //Ini adalah komentar pertama
-
+//Komentar yang ditambahkan oleh teman
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
