@@ -1,7 +1,7 @@
 <!doctype html>
     <html>
         <head>
-            <title>Perpustakaan</title>
+            <title>BUKU PTIK</title>
             <link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
             <link href="<?php echo base_url('assets/font-awesome/css/font-awesome.css');?>" rel="stylesheet">
         
@@ -27,12 +27,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo site_url('web');?>">Perpustakaan</a>
+                    <a class="navbar-brand" href="<?php echo site_url('web');?>">BUKU PTIK</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="<?php echo site_url('web');?>"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-                        <li><a href="<?php echo site_url('web/anggota');?>"><i class="glyphicon glyphicon-user"></i> Anggota</a></li>
+                        
                     </ul>
                     <div class="nav navbar-nav navbar-right">
                         <form class="navbar-form navbar-left" role="search" action="<?php echo site_url('web/cari_buku');?>" method="post">
@@ -100,7 +100,13 @@
                         </div>
                     </div>
                     <div class="col-md-8 ">
-                        <legend>Selamat Datang di Apliasi Perpusatakaan</legend>
+                        <legend>Selamat Datang</legend><br>
+						<h2>Anggota Kelompok :</h2><br>
+						<h3>1. Ahmad Pramono (K3513006)</h3>
+						<h3>2. Istikomah (K35130)</h3>
+						<h3>3. Kharisma Febri Handhika (K3513030)</h3>
+						<h3>4. Lutfi Permatasari <K35130></h3>
+						<h3>5. Mochammad Badru (K35130)</h3>
                     </div>
                 </div>
             </div>

@@ -14,24 +14,31 @@
     <thead>
         <tr>
             <td>No.</td>
-            <td>Image</td>
+            <td>Gambar</td>
             <td>Kode Buku</td>
             <td>Judul</td>
             <td>Pengarang</td>
-            <td>Klasifikasi</td>
+			<td>Tahun Terbit</td>
+			<td>Kategori</td>
+			<td>Keterangan Stok</td>
+			<td>Deskripsi Buku</td>
             <td colspan="2"></td>
         </tr>
     </thead>
     <?php $no=0; foreach($buku as $row ): $no++;?>
     <tr>
         <td><?php echo $no;?></td>
-        <td><img src="<?php echo base_url('assets/img/'.$row->image);?>" height="100px" width="100px"></td>
+        <td><img src="<?php echo base_url('assets/img/'.$row->gambar);?>" height="100px" width="100px"></td>
         <td><?php echo $row->kode_buku;?></td>
-        <td><?php echo $row->judul;?></td>
+        <td><?php echo $row->judul_buku;?></td>
         <td><?php echo $row->pengarang;?></td>
-        <td><?php echo $row->klasifikasi;?></td>
+        <td><?php echo $row->tahun_terbit;?></td>
+		<td><?php echo $row->kategori;?></td>
+		<td><?php echo $row->keterangan_stok;?></td>
+		<td><?php echo $row->deskripsi;?></td>
         <td><a href="<?php echo site_url('buku/edit/'.$row->kode_buku);?>"><i class="glyphicon glyphicon-edit"></i></a></td>
-        <td><a href="#" class="hapus" kode="<?php echo $row->kode_buku;?>"><i class="glyphicon glyphicon-trash"></i></a></td>
+        <td><a href="#" class="hapus" kode_buku="<?php echo $row->kode_buku;?>"><i class="glyphicon glyphicon-trash"></i></a></td>
+		 <td><a href="<?php echo site_url('buku/detail/'.$row->kode_buku);?>" class="detail"><i class="glyphicon glyphicon-book"></i></a></td>
     </tr>
     <?php endforeach;?>
 </Table>
@@ -40,9 +47,9 @@
 <script>
     $(function(){
         $(".hapus").click(function(){
-            var kode=$(this).attr("kode");
+            var kode_buku=$(this).attr("kode_buku");
             
-            $("#idhapus").val(kode);
+            $("#idhapus").val(kode_buku);
             $("#myModal").modal("show");
         });
         
@@ -52,7 +59,7 @@
             $.ajax({
                 url:"<?php echo site_url('buku/hapus');?>",
                 type:"POST",
-                data:"kode="+kode,
+                data:"kode_buku="+kode,
                 cache:false,
                 success:function(html){
                     location.href="<?php echo site_url('buku/index/delete_success');?>";

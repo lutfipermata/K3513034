@@ -21,11 +21,6 @@ class Buku extends CI_Controller{
         $data['buku']=$this->m_buku->semua($this->limit,$offset,$order_column,$order_type)->result();
         $data['title']="Data Buku";
         
-        $config['base_url']=site_url('anggota/index/');
-        $config['total_rows']=$this->m_buku->jumlah();
-        $config['per_page']=$this->limit;
-        $config['uri_segment']=3;
-        $this->pagination->initialize($config);
         $data['pagination']=$this->pagination->create_links();
         
         
@@ -37,13 +32,42 @@ class Buku extends CI_Controller{
             $data['message']='';
             $this->template->display('buku/index',$data);
     }
+	
+	
+	
+	function detail($id){
+        $data['title']="Detail";
+        
+        
+            $kode=$this->input->post('kode_buku');
+            
+            
+                
+                $gambar=$this->upload->file_name;
+            
+            
+            $info=array(
+					
+					'judul_buku'=>$this->input->post('judul_buku'),
+                    'pengarang'=>$this->input->post('pengarang'),
+                    'tahun_terbit'=>$this->input->post('tahun_terbit'),
+					'kategori'=>$this->input->post('kategori'),
+					'keterangan_stok'=>$this->input->post('keterangan_stok'),
+					'deskripsi'=>$this->input->post('deskripsi'),
+                    'gambar'=>$gambar
+            );
+			$data['buku']=$this->m_buku->cek($id)->row_array();
+            $this->template->display('buku/detail',$data);
+        
+    }
+	
     
     
     function tambah(){
         $data['title']="Tambah Buku";
         $this->_set_rules();
         if($this->form_validation->run()==true){//jika validasi dijalankan dan benar
-            $kode=$this->input->post('kode'); // mendapatkan input dari kode
+            $kode=$this->input->post('kode_buku'); // mendapatkan input dari kode
             $cek=$this->m_buku->cek($kode); // cek kode di database
             if($cek->num_rows()>0){ // jika kode sudah ada, maka tampilkan pesan
                 $data['message']="<div class='alert alert-danger'>Kode Buku sudah ada</div>";
@@ -65,11 +89,14 @@ class Buku extends CI_Controller{
                 }
                 
                 $info=array(
-                    'kode_buku'=>$this->input->post('kode'),
-                    'judul'=>$this->input->post('judul'),
+                    'kode_buku'=>$this->input->post('kode_buku'),
+                    'judul_buku'=>$this->input->post('judul_buku'),
                     'pengarang'=>$this->input->post('pengarang'),
-                    'klasifikasi'=>$this->input->post('klasifikasi'),
-                    'image'=>$gambar
+                    'tahun_terbit'=>$this->input->post('tahun_terbit'),
+					'kategori'=>$this->input->post('kategori'),
+					'keterangan_stok'=>$this->input->post('keterangan_stok'),
+					'deskripsi'=>$this->input->post('deskripsi'),
+                    'gambar'=>$gambar
                 );
                 $this->m_buku->simpan($info);
                 redirect('buku/index/add_success');
@@ -85,7 +112,7 @@ class Buku extends CI_Controller{
         $data['title']="Edit data Buku";
         $this->_set_rules();
         if($this->form_validation->run()==true){
-            $kode=$this->input->post('kode');
+            $kode=$this->input->post('kode_buku');
             
             //setting konfiguras upload image
             $config['upload_path'] = './assets/img/';
@@ -102,10 +129,14 @@ class Buku extends CI_Controller{
             }
             
             $info=array(
-                'judul'=>$this->input->post('judul'),
-                'pengarang'=>$this->input->post('pengarang'),
-                'klasifikasi'=>$this->input->post('klasifikasi'),
-                'image'=>$gambar
+					
+					'judul_buku'=>$this->input->post('judul_buku'),
+                    'pengarang'=>$this->input->post('pengarang'),
+                    'tahun_terbit'=>$this->input->post('tahun_terbit'),
+					'kategori'=>$this->input->post('kategori'),
+					'keterangan_stok'=>$this->input->post('keterangan_stok'),
+					'deskripsi'=>$this->input->post('deskripsi'),
+                    'gambar'=>$gambar
             );
             $this->m_buku->update($kode,$info);
             
@@ -120,16 +151,16 @@ class Buku extends CI_Controller{
     }
     
     function hapus(){
-        $kode=$this->input->post('kode');
+        $kode=$this->input->post('kode_buku');
         $detail=$this->m_buku->cek($kode)->result();
 	foreach($detail as $det):
-	    unlink("assets/img/".$det->image);
+	    unlink("assets/img/".$det->gambar);
 	endforeach;
         $this->m_buku->hapus($kode);
     }
     
     function cari(){
-        $data['title']="Pencairan";
+        $data['title']="Pencarian";
         $cari=$this->input->post('cari');
         $cek=$this->m_buku->cari($cari);
         if($cek->num_rows()>0){
@@ -142,12 +173,20 @@ class Buku extends CI_Controller{
             $this->template->display('buku/cari',$data);
         }
     }
+	
+	
     
+	
+	
     function _set_rules(){
-        $this->form_validation->set_rules('kode','Kode Buku','required|max_length[5]');
-        $this->form_validation->set_rules('judul','Judul Buku','required|max_length[100]');
+        $this->form_validation->set_rules('kode_buku','Kode Buku','required|max_length[5]');
+        $this->form_validation->set_rules('judul_buku','Judul Buku','required|max_length[100]');
         $this->form_validation->set_rules('pengarang','Pengarang','required|max_length[50]');
-        $this->form_validation->set_rules('klasifikasi','Klasifikasi','required|max_length[25]');
+		$this->form_validation->set_rules('tahun_terbit','Tahun Terbit','required|max_length[5]');
+		$this->form_validation->set_rules('kategori','Kategori','required|max_length[100]');
+		$this->form_validation->set_rules('keterangan_stok','Keterangan Stok','required|max_length[100]');
+		$this->form_validation->set_rules('deskripsi','Deskripsi','required|max_length[1000]');
+        
         $this->form_validation->set_error_delimiters("<div class='alert alert-danger'>","</div>");
     }
 }

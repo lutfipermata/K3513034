@@ -8,7 +8,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo site_url('dashboard');?>">Perpustakaan</a>
+                    <a class="navbar-brand" href="<?php echo site_url('dashboard');?>">BUKU PTIK</a>
                 </div>
                 </div>
             </div>

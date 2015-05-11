@@ -3,7 +3,7 @@ class Web extends CI_Controller{
     
     function __construct(){
         parent::__construct();
-        $this->load->model(array('m_buku','m_anggota','m_petugas'));
+        $this->load->model(array('m_buku','m_petugas'));
         if($this->session->userdata('username')){
             redirect('dashboard');
         }
@@ -20,18 +20,9 @@ class Web extends CI_Controller{
         $this->load->view('web/cari_buku',$data);
     }
     
-    function anggota(){
-        $data['title']="Data Anggota";
-        $data['anggota']=$this->m_anggota->semua()->result();
-        $this->load->view('web/anggota',$data);
-    }
+   
     
-    function cari_anggota(){
-        $cari=$this->input->post('cari');
-        $data['title']="Data Anggota";
-        $data['anggota']=$this->m_anggota->cari($cari)->result();
-        $this->load->view('web/anggota',$data);
-    }
+    
     
     function login(){
         $this->load->view('web/login');

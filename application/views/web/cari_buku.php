@@ -1,7 +1,7 @@
 <!doctype html>
     <html>
         <head>
-            <title>Perpustakaan</title>
+            <title>BUKU PTIK</title>
             <link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
             <link href="<?php echo base_url('assets/font-awesome/css/font-awesome.css');?>" rel="stylesheet">
         
@@ -27,12 +27,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo site_url('web');?>">Perpustakaan</a>
+                    <a class="navbar-brand" href="<?php echo site_url('web');?>">BUKU PTIK</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="<?php echo site_url('web');?>"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-                        <li><a href="<?php echo site_url('web/anggota');?>"><i class="glyphicon glyphicon-user"></i> Anggota</a></li>
+                       
                     </ul>
                     <div class="nav navbar-nav navbar-right">
                         <form class="navbar-form navbar-left" role="search" action="<?php echo site_url('web/cari_buku');?>" method="post">
@@ -102,25 +102,32 @@
                     <div class="col-md-8 ">
                         <legend>Pencarian Buku</legend>
                         <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <td>No.</td>
-                                    <td>Gambar</td>
-                                    <td>Kode Buku</td>
-                                    <td>Judul Buku</td>
-                                    <td>Pengarang</td>
-                                    <td>Klasifikasi</td>
-                                </tr>
-                            </thead>
+                           <thead>
+        <tr>
+            <td>No.</td>
+            <td>Gambar</td>
+            <td>Kode Buku</td>
+            <td>Judul</td>
+            <td>Pengarang</td>
+			<td>Tahun Terbit</td>
+			<td>Kategori</td>
+			<td>Keterangan Stok</td>
+			<td>Deskripsi Buku</td>
+            <td colspan="2"></td>
+        </tr>
+    </thead>
                             <?php $no=0; foreach($hasil as $row): $no++;?>
-                            <tr>
-                                <td><?php echo $no;?></td>
-                                <td><img src="<?php echo base_url('assets/img/'.$row->image);?>" width="100px" height="100px"></td>
-                                <td><?php echo $row->kode_buku;?></td>
-                                <td><?php echo $row->judul;?></td>
-                                <td><?php echo $row->pengarang;?></td>
-                                <td><?php echo $row->klasifikasi;?></td>
-                            </tr>
+                           <tr>
+        <td><?php echo $no;?></td>
+        <td><img src="<?php echo base_url('assets/img/'.$row->gambar);?>" height="100px" width="100px"></td>
+        <td><?php echo $row->kode_buku;?></td>
+        <td><?php echo $row->judul_buku;?></td>
+        <td><?php echo $row->pengarang;?></td>
+        <td><?php echo $row->tahun_terbit;?></td>
+		<td><?php echo $row->kategori;?></td>
+		<td><?php echo $row->keterangan_stok;?></td>
+		<td><?php echo $row->deskripsi;?></td>
+        </tr>
                             <?php endforeach;?>
                         </table>
                     </div>
